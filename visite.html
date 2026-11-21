@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="estilo.css"></head><body>
 <div id="topo"></div>
 <main id="conteudo">
-<div class="cabeca"><div class="faixa"><p class="rotulo">Planeje sua visita</p><h1>Visite</h1><p class="lead">Entrada gratuita, de segunda a sexta-feira, das 10h às 18h.</p></div></div>
+<div class="cabeca"><div class="faixa"><p class="rotulo">Planeje sua visita</p><h1>Visite</h1><p class="lead">Entrada gratuita, de segunda a sexta-feira, das 10h às 18h.</p><a class="botao" href="#agendar">Agendar visita</a></div></div>
 <section class="secao areia"><div class="faixa duas">
   <div class="dados">
     <div><p class="rotulo">Endereço</p><p>Rua Bocaiuva, 1755 · Centro<br>Florianópolis/SC<br>CEP 88015-904</p><p><a href="https://www.google.com/maps/search/?api=1&query=Rua+Bocaiuva+1755+Florian%C3%B3polis" target="_blank" rel="noopener">Abrir no mapa</a></p></div>
@@ -17,6 +17,28 @@
     <div><p class="rotulo">Acessibilidade</p><p>Elevador entre o térreo e o pavimento superior da Casa do Barão.</p></div>
   </div>
   <div data-f="jardim" class="livre"></div>
+</div></section>
+<section id="agendar" class="secao branco"><div class="faixa duas">
+  <div><p class="rotulo">Agendamento</p><h2>Agende sua visita</h2>
+  <p>Preencha o formulário. Ao final, seu aplicativo de e-mail abrirá com a mensagem pronta para <a href="mailto:ceaf@mpsc.mp.br">ceaf@mpsc.mp.br</a>. Basta conferir e enviar.</p>
+  <p>O agendamento só é confirmado após a resposta da equipe do CEAF. Se preferir, ligue para <a href="tel:+554832299304">(48) 3229-9304</a>.</p></div>
+  <form id="form-agenda" class="agenda">
+    <div class="campos">
+      <div class="campo larga"><label for="a-nome">Nome completo</label><input id="a-nome" name="nome" required autocomplete="name" maxlength="120"></div>
+      <div class="campo"><label for="a-email">E-mail</label><input id="a-email" name="email" type="email" required autocomplete="email" maxlength="120"></div>
+      <div class="campo"><label for="a-telefone">Telefone <small>(opcional)</small></label><input id="a-telefone" name="telefone" type="tel" autocomplete="tel" maxlength="30"></div>
+      <div class="campo"><label for="a-tipo">Tipo de visita</label><select id="a-tipo" name="tipo" required><option value="">Selecione</option><option>Escolar</option><option>Grupo</option><option>Individual ou familiar</option><option>Outro</option></select></div>
+      <div class="campo"><label for="a-pessoas">Número de pessoas</label><input id="a-pessoas" name="pessoas" type="number" min="1" max="500" inputmode="numeric" required></div>
+      <div class="campo larga"><label for="a-instituicao">Escola ou instituição <small>(opcional)</small></label><input id="a-instituicao" name="instituicao" autocomplete="organization" maxlength="120"></div>
+      <div class="campo"><label for="a-data">Data desejada <small>(segunda a sexta)</small></label><input id="a-data" name="data" type="date" required></div>
+      <div class="campo"><label for="a-horario">Horário desejado</label><select id="a-horario" name="horario" required><option value="">Selecione</option><option>10h</option><option>11h</option><option>12h</option><option>13h</option><option>14h</option><option>15h</option><option>16h</option><option>17h</option></select></div>
+      <div class="campo larga"><label for="a-acessibilidade">Necessidades de acessibilidade <small>(opcional)</small></label><input id="a-acessibilidade" name="acessibilidade" maxlength="200"></div>
+      <div class="campo larga"><label for="a-mensagem">Mensagem <small>(opcional)</small></label><textarea id="a-mensagem" name="mensagem" maxlength="800"></textarea></div>
+    </div>
+    <button class="botao" type="submit">Preparar mensagem</button>
+    <p class="agenda-nota">Seus dados não ficam armazenados neste site. Eles seguem apenas na mensagem que você enviar.</p>
+    <div id="agenda-aviso" class="agenda-aviso" tabindex="-1" role="status" hidden><p><strong>Falta só enviar.</strong> Confira a mensagem no seu e-mail. Se o aplicativo não abriu, copie o texto e envie para ceaf@mpsc.mp.br.</p><button id="agenda-copiar" type="button">Copiar mensagem</button></div>
+  </form>
 </div></section>
 <section class="secao"><div class="faixa"><p class="rotulo">Planta · Casa do Barão</p><h2>Percurso pelas salas</h2>
   <div class="plantas">

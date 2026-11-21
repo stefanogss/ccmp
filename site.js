@@ -10,7 +10,7 @@
   document.getElementById('topo').innerHTML =
     '<a class="pular" href="#conteudo">Pular para o conteúdo</a><header class="topo"><div class="faixa">' +
     '<a class="marca" href="index.html"><strong>Centro Cultural</strong><span>do Ministério Público de Santa Catarina</span></a>' +
-    '<button class="menu-botao" aria-expanded="false" aria-controls="menu">Menu</button>' +
+    '<button class="menu-botao" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>' +
     '<nav id="menu" aria-label="Principal">' + links + '</nav></div></header>';
 
   document.getElementById('rodape').innerHTML =
@@ -22,10 +22,57 @@
     '</div></footer>';
 
   var botao = document.querySelector('.menu-botao'), menu = document.getElementById('menu');
-  botao.addEventListener('click', function () {
-    var aberto = menu.classList.toggle('aberto');
+  function defineMenu(aberto) {
+    menu.classList.toggle('aberto', aberto);
     botao.setAttribute('aria-expanded', aberto);
+    botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  }
+  botao.addEventListener('click', function () { defineMenu(!menu.classList.contains('aberto')); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) defineMenu(false); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.topo')) defineMenu(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menu.classList.contains('aberto')) { defineMenu(false); botao.focus(); }
   });
+  window.addEventListener('resize', function () { if (window.innerWidth > 900) defineMenu(false); });
+
+  var agenda = document.getElementById('form-agenda');
+  if (agenda) {
+    var campo = function (n) { return agenda.elements[n]; };
+    var aviso = document.getElementById('agenda-aviso'), textoPronto = '';
+    var amanha = new Date(); amanha.setDate(amanha.getDate() + 1);
+    var doisDig = function (n) { return String(n).padStart(2, '0'); };
+    campo('data').min = amanha.getFullYear() + '-' + doisDig(amanha.getMonth() + 1) + '-' + doisDig(amanha.getDate());
+    var validaData = function () {
+      var v = campo('data').value, msg = '';
+      if (v) { var p = v.split('-'), d = new Date(+p[0], p[1] - 1, +p[2]).getDay(); if (d === 0 || d === 6) msg = 'O Centro Cultural abre de segunda a sexta-feira. Escolha um dia útil.'; }
+      campo('data').setCustomValidity(msg);
+    };
+    campo('data').addEventListener('input', validaData);
+    agenda.addEventListener('submit', function (e) {
+      e.preventDefault(); validaData();
+      if (!agenda.reportValidity()) return;
+      var v = function (n) { return campo(n).value.trim(); };
+      var p = v('data').split('-'), dataBR = p[2] + '/' + p[1] + '/' + p[0];
+      var linhas = ['Olá,', '', 'Gostaria de solicitar o agendamento de uma visita ao Centro Cultural do MPSC.', '',
+        'Nome: ' + v('nome'), 'E-mail: ' + v('email')];
+      if (v('telefone')) linhas.push('Telefone: ' + v('telefone'));
+      if (v('instituicao')) linhas.push('Escola ou instituição: ' + v('instituicao'));
+      linhas.push('Tipo de visita: ' + v('tipo'), 'Data desejada: ' + dataBR, 'Horário desejado: ' + v('horario'), 'Número de pessoas: ' + v('pessoas'));
+      if (v('acessibilidade')) linhas.push('Necessidades de acessibilidade: ' + v('acessibilidade'));
+      if (v('mensagem')) linhas.push('', 'Mensagem:', v('mensagem'));
+      linhas.push('', 'Aguardo a confirmação.', '', v('nome'));
+      textoPronto = linhas.join('\r\n');
+      var assunto = 'Agendamento de visita - ' + dataBR + ' - ' + v('nome');
+      var link = document.createElement('a');
+      link.href = 'mailto:ceaf@mpsc.mp.br?subject=' + encodeURIComponent(assunto) + '&body=' + encodeURIComponent(textoPronto);
+      document.body.appendChild(link); link.click(); link.remove();
+      aviso.hidden = false; aviso.focus();
+    });
+    document.getElementById('agenda-copiar').addEventListener('click', function () {
+      var b = this;
+      navigator.clipboard.writeText(textoPronto).then(function () { b.textContent = 'Mensagem copiada'; }, function () { b.textContent = 'Não foi possível copiar'; });
+    });
+  }
 
   function criaFoto(chave, grande) {
     var f = FOTOS[chave]; if (!f) return null;
