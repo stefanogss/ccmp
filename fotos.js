@@ -2,14 +2,14 @@
    Formato: apelido: [id, chave, tema, legenda]
    Para corrigir uma legenda, altere apenas o último texto da linha. */
 window.TEMAS = {
-  casa: 'A Casa do Barão',
+  bocaiuva: 'Casa Bocaiuva',
+  casa: 'Casa do Barão',
   praia: 'Praia de Fora',
   familias: 'Famílias',
   consulado: 'Consulado',
-  edla: 'Sob o olhar de Edla',
+  edla: 'Edla',
   futuros: 'Futuros possíveis',
-  obra: 'Entre o antigo e o novo',
-  bocaiuva: 'Casa Bocaiuva'
+  obra: 'Entre o antigo e o novo'
 };
 window.FOTOS = {
   'casa-pb': ['55664878936', 'a033dc1242', 'casa', 'Casa do Barão, fachada com varanda e gradis de ferro'],

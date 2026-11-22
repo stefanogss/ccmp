@@ -1,6 +1,7 @@
 (function () {
-  var NAV = [['index.html', 'Início'], ['historia.html', 'História'], ['exposicoes.html', 'Exposições'], ['galeria.html', 'Galeria'], ['visite.html', 'Visite']];
+  var NAV = [['index.html', 'Início'], ['exposicoes.html', 'Exposições'], ['linha-do-tempo.html', 'Linha do tempo'], ['galeria.html', 'Galeria'], ['visite.html', 'Visite']];
   var aqui = (location.pathname.split('/').pop() || 'index.html');
+  if (aqui === 'edla.html' || aqui === 'antigo-novo.html') aqui = 'exposicoes.html';
   var url = function (f, t) { return 'https://live.staticflickr.com/65535/' + f[0] + '_' + f[1] + '_' + t + '.jpg'; };
   var flickr = function (f) { return 'https://www.flickr.com/photos/167401187@N06/' + f[0] + '/in/album-72177720337151969'; };
   var links = NAV.map(function (n) {
@@ -93,8 +94,10 @@
 
   var grade = document.getElementById('galeria'), filtros = document.getElementById('filtros');
   if (grade) {
-    Object.keys(FOTOS).forEach(function (k) {
-      var fig = criaFoto(k); fig.dataset.tema = FOTOS[k][2]; grade.appendChild(fig);
+    Object.keys(TEMAS).forEach(function (t) {
+      Object.keys(FOTOS).filter(function (k) { return FOTOS[k][2] === t; }).forEach(function (k) {
+        var fig = criaFoto(k); fig.dataset.tema = t; grade.appendChild(fig);
+      });
     });
     var opcoes = [['todas', 'Todas']].concat(Object.keys(TEMAS).map(function (t) { return [t, TEMAS[t]]; }));
     opcoes.forEach(function (o, n) {
