@@ -1,7 +1,7 @@
 (function () {
   var NAV = [['index.html', 'Início'], ['exposicoes.html', 'Exposições'], ['linha-do-tempo.html', 'Linha do tempo'], ['galeria.html', 'Galeria'], ['visite.html', 'Visite']];
   var aqui = (location.pathname.split('/').pop() || 'index.html');
-  if (aqui === 'edla.html' || aqui === 'antigo-novo.html') aqui = 'exposicoes.html';
+  if (aqui === 'edla.html' || aqui === 'antigo-novo.html' || aqui === 'hassis.html') aqui = 'exposicoes.html';
   var url = function (f, t) { return 'https://live.staticflickr.com/65535/' + f[0] + '_' + f[1] + '_' + t + '.jpg'; };
   var flickr = function (f) { return 'https://www.flickr.com/photos/167401187@N06/' + f[0] + '/in/album-72177720337151969'; };
   var links = NAV.map(function (n) {
@@ -16,9 +16,9 @@
 
   document.getElementById('rodape').innerHTML =
     '<footer class="rodape"><div class="faixa rodape-grade">' +
-    '<div><p class="rodape-titulo">Centro Cultural do MPSC</p><p>Rua Bocaiuva, 1755 · Centro<br>Florianópolis/SC · CEP 88015-904</p></div>' +
+    '<div><p class="rodape-titulo">Centro Cultural do MPSC</p><p>Rua Bocaiúva, 1750 · Centro<br>Florianópolis/SC · CEP 88015-904</p></div>' +
     '<div><p class="rotulo">Visitação</p><p>Segunda a sexta-feira, das 10h às 18h<br>Entrada gratuita</p></div>' +
-    '<div><p class="rotulo">Agendamento</p><p><a href="mailto:ceaf@mpsc.mp.br">ceaf@mpsc.mp.br</a><br><a href="tel:+554832299304">(48) 3229-9304</a></p></div>' +
+    '<div><p class="rotulo">Agendamento</p><p><a href="mailto:ceaf@mpsc.mp.br">ceaf@mpsc.mp.br</a><br><a href="tel:+554832299200">(48) 3229-9200</a></p></div>' +
     '<div><p class="rotulo">Realização</p><div class="logos"><img src="marca/mpsc.png" alt="Ministério Público de Santa Catarina"><img src="marca/ceaf.png" alt="Centro de Estudos e Aperfeiçoamento Funcional"></div></div>' +
     '</div></footer>';
 
